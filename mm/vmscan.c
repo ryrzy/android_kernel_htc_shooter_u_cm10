@@ -3620,3 +3620,4 @@ void scan_unevictable_unregister_node(struct node *node)
 	sysdev_remove_file(&node->sysdev, &attr_scan_unevictable_pages);
 }
 #endif
+
