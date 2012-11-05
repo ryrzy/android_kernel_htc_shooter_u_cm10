@@ -1,18 +1,4 @@
 /*
-<<<<<<< HEAD
-* Author: Chad Froebel <chadfroebel@gmail.com>
-*
-* This software is licensed under the terms of the GNU General Public
-* License version 2, as published by the Free Software Foundation, and
-* may be copied, distributed, and modified under those terms.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-*/
-=======
  * Author: Chad Froebel <chadfroebel@gmail.com>
  *
  * Ported to Sensation and extended : Jean-Pierre Rasquin <yank555.lu@gmail.com>
@@ -27,7 +13,6 @@
  * GNU General Public License for more details.
  *
  */
->>>>>>> dd1a6f1... USB forced fast charge v3.1 - Coolexe
 
 /*
  * Possible values for "force_fast_charge" are :
@@ -235,11 +220,6 @@ static struct kobject *force_fast_charge_kobj;
 
 int force_fast_charge_init(void)
 {
-<<<<<<< HEAD
-int retval;
-
-force_fast_charge = 0;
-=======
 	int force_fast_charge_retval;
 	int USB_peripheral_detected_retval;
 	int USB_porttype_detected_retval;
@@ -251,7 +231,6 @@ force_fast_charge = 0;
 	USB_porttype_detected = NO_USB_DETECTED; /* Consider no USB port is yet detected */
 	is_fast_charge_forced = FAST_CHARGE_NOT_FORCED; /* Consider fast charge is not forced at start */
 	current_charge_mode = CURRENT_CHARGE_MODE_DISCHARGING; /* Consider we are discharging at start */
->>>>>>> dd1a6f1... USB forced fast charge v3.1 - Coolexe
 
         force_fast_charge_kobj = kobject_create_and_add("fast_charge", kernel_kobj);
         if (!force_fast_charge_kobj) {
@@ -270,7 +249,7 @@ force_fast_charge = 0;
 
 void force_fast_charge_exit(void)
 {
-kobject_put(force_fast_charge_kobj);
+	kobject_put(force_fast_charge_kobj);
 }
 
 module_init(force_fast_charge_init);
