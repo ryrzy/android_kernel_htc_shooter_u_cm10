@@ -225,7 +225,7 @@ osl_attach(void *pdev, uint bustype, bool pkttag)
     if(skb_buff_ptr != NULL)
 #endif
 		bcopy(skb_buff_ptr, bcm_static_skb, sizeof(struct sk_buff *)*16);
-		for (i = 0; i < MAX_STATIC_PKT_NUM*2; i++)
+		for (i = 0; i < MAX_STATIC_PKT_NUM; i++)
 			bcm_static_skb->pkt_use[i] = 0;
 
 		init_MUTEX(&bcm_static_skb->osl_pkt_sem);
