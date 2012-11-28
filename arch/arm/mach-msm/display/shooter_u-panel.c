@@ -417,13 +417,13 @@ static struct mipi_dsi_platform_data mipi_pdata = {
 	.dsi_power_save   = mipi_panel_power,
 };
 
-#define BRI_SETTING_MIN		1
-#define BRI_SETTING_DEF		90
+#define BRI_SETTING_MIN		29
+#define BRI_SETTING_DEF		162
 #define BRI_SETTING_MAX		255
 
 #define PWM_MIN				7
-#define PWM_DEFAULT			75
-#define PWM_MAX				232
+#define PWM_DEFAULT			80
+#define PWM_MAX				222
 
 unsigned char shrink_br = BRI_SETTING_MAX;
 unsigned char last_br_2d = BRI_SETTING_MAX;
@@ -432,16 +432,16 @@ static unsigned char shooter_u_shrink_pwm(int val)
 
 	if (val <= 0) {
 		shrink_br = 0;
-	} else if (val > 0 && (val < BRI_SETTING_MIN)) {
-		shrink_br = PWM_MIN+1; // the '+1' is the only change here, per Anryl it is needed to produce a valid value for min brightness.
-	} else if ((val >= BRI_SETTING_MIN) && (val <= BRI_SETTING_DEF)) {
+	} else if (val > 0 && (val <= BRI_SETTING_MIN)) {
+		shrink_br = PWM_MIN + 5/10 ; 
+	} else if ((val > BRI_SETTING_MIN) && (val <= BRI_SETTING_DEF)) {
 		shrink_br = (val - BRI_SETTING_MIN) * (PWM_DEFAULT - PWM_MIN) /
-			(BRI_SETTING_DEF - BRI_SETTING_MIN) + PWM_MIN;
-	} else if (val > BRI_SETTING_DEF && val <= BRI_SETTING_MAX) {
+			(BRI_SETTING_DEF - BRI_SETTING_MIN) + PWM_MIN; 
+	} else if (val > BRI_SETTING_DEF && val < BRI_SETTING_MAX) {
 		shrink_br = (val - BRI_SETTING_DEF) * (PWM_MAX - PWM_DEFAULT) /
-			(BRI_SETTING_MAX - BRI_SETTING_DEF) + PWM_DEFAULT;
-	} else if (val > BRI_SETTING_MAX)
-		shrink_br = PWM_MAX;
+			(BRI_SETTING_MAX - BRI_SETTING_DEF) + PWM_DEFAULT; 
+	} else if (val >= BRI_SETTING_MAX)
+		shrink_br = 148; 
 
 	if (atomic_read(&g_3D_mode) != BARRIER_OFF && shrink_br != 0)
 		shrink_br = 255;
@@ -1273,3 +1273,4 @@ static void __exit shooter_u_3Dpanel_exit(void)
 
 module_init(shooter_u_3Dpanel_init);
 module_exit(shooter_u_3Dpanel_exit);
+
